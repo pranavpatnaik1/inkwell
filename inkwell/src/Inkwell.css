@@ -18,7 +18,8 @@ html, body {
   overflow: hidden;
   background-size: cover;
   background-position: center;
-  transition: all 1s ease;
+  will-change: background-image;
+  transition: background-image 0.3s ease;
 }
 
 .theme-background {
@@ -131,7 +132,8 @@ p {
   max-width: 1200px;
   height: auto;
   opacity: 1;
-  transition: opacity 0.5s ease;
+  will-change: opacity;
+  transition: opacity 0.3s ease;
 }
 
 .logo-image.fade {
@@ -178,4 +180,26 @@ p {
   top: 40%;
   right: 30%;
   transform: translate(50%, -50%);
+}
+
+.explore-link {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.explore-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateX(-50%) translateY(-2px);
 }
