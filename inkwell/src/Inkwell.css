@@ -264,18 +264,22 @@ p {
 }
 
 .email-card {
-  background: white;
-  border-radius: 12px;
-  padding: 30px;
+  background: linear-gradient(135deg, #A06EA2 0%, #613963 100%);
+  border-radius: 16px;
+  padding: 40px;
   width: 90%;
-  max-width: 600px;
-  max-height: 80vh;
-  overflow-y: auto;
+  max-width: 700px;
+  height: min(80vh, 700px);
+  min-height: min(600px, 90vh);
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   position: relative;
   transform: translateY(20px);
   opacity: 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
+  border: 2px solid white;
+  color: white;
 }
 
 .modal-overlay.visible .email-card {
@@ -284,47 +288,105 @@ p {
 }
 
 .email-card-header {
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #eee;
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
 }
 
 .email-card-field {
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   display: flex;
+  font-size: 1.1em;
 }
 
 .email-card-label {
   width: 80px;
-  color: #666;
+  color: rgba(255, 255, 255, 0.8);
   font-weight: 500;
 }
 
 .email-card-value {
   flex: 1;
-  color: #333;
+  color: white;
 }
 
 .email-card-content {
-  color: #333;
-  line-height: 1.6;
+  color: white;
+  line-height: 1.8;
   white-space: pre-wrap;
+  font-size: 1.1em;
+  flex: 1;
+  padding: 20px 0;
+  overflow-y: auto;
 }
 
 .close-button {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 24px;
+  right: 24px;
   background: none;
   border: none;
-  font-size: 24px;
-  color: #666;
+  font-size: 28px;
+  color: white;
   cursor: pointer;
-  padding: 5px;
+  padding: 8px;
   line-height: 1;
-  transition: color 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
 .close-button:hover {
-  color: #333;
+  opacity: 0.8;
+}
+
+@media (max-height: 900px) {
+  .email-card {
+    height: min(75vh, 600px);
+    min-height: min(500px, 80vh);
+    padding: 30px;
+  }
+
+  .email-card-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+  }
+
+  .email-card-field {
+    margin-bottom: 12px;
+  }
+
+  .email-card-content {
+    padding: 15px 0;
+  }
+}
+
+@media (max-height: 700px) {
+  .email-card {
+    height: min(70vh, 500px);
+    min-height: min(400px, 75vh);
+    padding: 25px;
+  }
+
+  .email-card-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+  }
+
+  .email-card-field {
+    margin-bottom: 8px;
+    font-size: 1em;
+  }
+
+  .email-card-content {
+    padding: 10px 0;
+    font-size: 1em;
+    line-height: 1.6;
+  }
+
+  .close-button {
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    padding: 5px;
+  }
 }
