@@ -7,6 +7,11 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isComposeVisible, setIsComposeVisible] = useState(false);
+  const [newMessage, setNewMessage] = useState({
+    text: '',
+    sender: 'You'
+  });
 
   useEffect(() => {
     const loadMessages = async () => {
@@ -24,8 +29,33 @@ const Home = () => {
   }, []);
 
   const handleWriteClick = () => {
-    // TODO: Implement write functionality
-    console.log('Write button clicked');
+    setIsComposeVisible(true);
+  };
+
+  const handleCloseCompose = () => {
+    setIsComposeVisible(false);
+    setNewMessage({ text: '', sender: 'You' });
+  };
+
+  const handleSendMessage = async () => {
+    if (!newMessage.text.trim()) return;
+
+    try {
+      const messageToSend = {
+        ...newMessage,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+      await messageService.addMessage(messageToSend);
+      
+      // Refresh messages list
+      const updatedMessages = await messageService.getMessages();
+      setMessages(updatedMessages);
+      
+      // Close compose window
+      handleCloseCompose();
+    } catch (error) {
+      console.error('Failed to send message:', error);
+    }
   };
 
   const handleMessageClick = (message) => {
@@ -36,6 +66,34 @@ const Home = () => {
   const handleCloseModal = () => {
     setIsModalVisible(false);
     setTimeout(() => setSelectedMessage(null), 300); // Clear after animation
+  };
+
+  const ComposeWindow = ({ onClose }) => {
+    return (
+      <div className="compose-window" onClick={(e) => e.stopPropagation()}>
+        <div className="compose-header">
+          <span>New Message</span>
+          <div className="compose-header-actions">
+            <button onClick={onClose} title="Close">×</button>
+          </div>
+        </div>
+        
+        <div className="compose-content">
+          <div className="compose-fields">
+            <input type="text" placeholder="To" />
+            <input type="text" placeholder="Subject" />
+          </div>
+          <textarea 
+            placeholder="Write your message here..."
+            className="message-content"
+          />
+        </div>
+        
+        <div className="compose-footer">
+          <button className="send-button">Send</button>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -119,6 +177,11 @@ const Home = () => {
             </>
           )}
         </div>
+      </div>
+
+      {/* Compose Modal */}
+      <div className={`modal-overlay ${isComposeVisible ? 'visible' : ''}`} onClick={handleCloseCompose}>
+        <ComposeWindow onClose={handleCloseCompose} />
       </div>
     </div>
   );
