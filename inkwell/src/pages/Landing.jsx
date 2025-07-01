@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../Inkwell.css';
 
@@ -9,21 +9,8 @@ const themes = [
 ];
 
 const Landing = () => {
-  const [currentTheme, setCurrentTheme] = useState(0);
-  const [isFading, setIsFading] = useState(false);
-
-  const changeTheme = useCallback(() => {
-    setIsFading(true);
-    setTimeout(() => {
-      setCurrentTheme((prev) => (prev + 1) % themes.length);
-      setIsFading(false);
-    }, 300);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(changeTheme, 5000);
-    return () => clearInterval(interval);
-  }, [changeTheme]);
+  // Randomly select a theme index on component mount
+  const [currentTheme] = useState(() => Math.floor(Math.random() * themes.length));
 
   return (
     <div className={`inkwell-container ${themes[currentTheme].bg}`}>
@@ -31,7 +18,7 @@ const Landing = () => {
         <img 
           src={themes[currentTheme].logo}
           alt="inkwell - the journal that writes with you" 
-          className={`logo-image ${isFading ? 'fade' : ''}`}
+          className="logo-image"
         />
       </div>
     </div>

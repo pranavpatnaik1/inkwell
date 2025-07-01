@@ -20,6 +20,8 @@ html, body {
   background-position: center;
   will-change: background-image;
   transition: background-image 0.3s ease;
+  opacity: 0;
+  animation: fadeIn 1s ease-out forwards;
 }
 
 .theme-background {
@@ -131,9 +133,8 @@ p {
 .logo-image {
   max-width: 1200px;
   height: auto;
-  opacity: 1;
-  will-change: opacity;
-  transition: opacity 0.3s ease;
+  opacity: 0;
+  animation: fadeIn 1s ease-out 0.3s forwards;
 }
 
 .logo-image.fade {
@@ -202,4 +203,128 @@ p {
   background: rgba(255, 255, 255, 0.2);
   border-color: rgba(255, 255, 255, 0.5);
   transform: translateX(-50%) translateY(-2px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.write-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease;
+  z-index: 1000;
+}
+
+.write-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.write-button:hover {
+  transform: translateY(-2px);
+}
+
+.write-button:active {
+  transform: translateY(0);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.email-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.modal-overlay.visible .email-card {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.email-card-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.email-card-field {
+  margin-bottom: 12px;
+  display: flex;
+}
+
+.email-card-label {
+  width: 80px;
+  color: #666;
+  font-weight: 500;
+}
+
+.email-card-value {
+  flex: 1;
+  color: #333;
+}
+
+.email-card-content {
+  color: #333;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #666;
+  cursor: pointer;
+  padding: 5px;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.close-button:hover {
+  color: #333;
 }
